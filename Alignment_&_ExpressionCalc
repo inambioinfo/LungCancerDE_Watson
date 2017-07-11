@@ -1,7 +1,10 @@
 # Author: Abby Moore
-# Align trimmed reads to reference
+# Acronyms: R1 = forward read, R2 = backward read, dir = directory, w = with
+# Align trimmed reads to reference and calculate expression
 
 # Software: RSEM vs. 1.3.0
+            Bowtie2 vs. 2.3.2
+            Samtools vs. 1.4.1
 
 #!/bin/bash
 
@@ -17,6 +20,7 @@ do
 
         # Make base three, i.e. remove R*_001_fastq.gz 
         baseAlign=$(basename $filename R*_001_fastq.gz
+        echo $baseAlign
 
         # Run RSEM
         rsem-calculate-expression --bowtie2 -p 4 --phred33-quals --paired-end \
@@ -25,3 +29,12 @@ do
         <reference> <output_path_for_aligned_read>/${baseAlign}_PE_Aligned
 
 done
+
+# Create NGvec
+rsem-1.3.0/rsem-generate-ngvector genome.transcripts.fa genome.ngvec
+
+#Create data tables
+
+rsem-1.3.0/rsem-generate-data-matrix <dir_w_gene.results> > RSEM.gene.counts.matrix
+
+rsem-1.3.0/rsem-generate-data-matrix <dir_w_isoform.results> > RSEM.isoform.counts.matrix
