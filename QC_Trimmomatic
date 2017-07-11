@@ -1,13 +1,13 @@
 # Run Trimmomatic against individual samples or cohort
 # Acronyms: PE = paired-end, UP =  unpaired
 
-# Software:  Trimmomatic-0.36
+# Software:  Trimmomatic vs. 0.36
 
 # For an individual sample
 sudo java -jar trimmomatic-0.36.jar PE -phred33 <input_path_to_forward_read> <input_path_to_backward_read <output_path_to_forward_PE_read> <output_path_to_forward_UP_read <output_path_to_backward_PE_read> <output_path_to_backward_UP_read> ILLUMINACLIP:<path_to_adapter>/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
 # For cohort 
-!/bin/bash
+# !/bin/bash
 
 # The following portion of code adapted by Abby Moore from 
 # Brown, C. T. (February 22, 2017). Iabibi Documentation. (1.0), 4-5. 
