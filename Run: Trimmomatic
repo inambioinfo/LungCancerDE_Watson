@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#Adapted by Abby Moore from https://media.readthedocs.org/pdf/eel-pond/latest/e$
+
+for filename in /mnt/bd2/.Abbys_Lair/Raw_Data/*_R1_*.fastq.gz
+do
+        # first, make the base by removing fastq.gz
+        base=$(basename $filename .fastq.gz)
+        echo $base
+
+        # now, construct the R2 filename by replacing R1 with R2
+        baseR2=${base/_R1_/_R2_}
+        echo $baseR2
+
+        # finally, run Trimmomatic
+        sudo /mnt/bd2/software/jdk1.8.0_131/bin/java -jar \
+        /mnt/bd2/software/Trimmomatic-0.36/trimmomatic-0.36.jar PE -phred33 \
+                /mnt/bd2/.Abbys_Lair/Raw_Data/${base}.fastq.gz \
+                /mnt/bd2/.Abbys_Lair/Raw_Data/${baseR2}.fastq.gz \
+                /mnt/bd2/.Abbys_Lair/QC/Trim/${base}_PE.Adapter_Removed.fastq.gz \
+                /mnt/bd2/.Abbys_Lair/QC/Trim/${base}_UP.Adapter_Removed.fastq.gz \
+                /mnt/bd2/.Abbys_Lair/QC/Trim/${baseR2}_PE.Adapter_Removed.fastq.gz \
+                /mnt/bd2/.Abbys_Lair/QC/Trim/${baseR2}_UP.Adapter_Removed.fastq.gz\
+                ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 \
+                LEADING:3 TRAILING:3 \
+                SLIDINGWINDOW:4:15 \
+                MINLEN:36
+        # save the orphans
+        gzip -9c /mnt/bd2/.Abbys_Lair/QC/Trim/${base}_UP.Adapter_Removed.fastq.gz \ 
+        /mnt/bd2/.Abbys_Lair/QC/Trim/${base2}_UP.Adapter_Removed.fastq.gz \
+         >>/mnt/bd2/.Abbys_Lair/QC/Trim/orphans.Adapter_Removed.fq.gz
+
+done
