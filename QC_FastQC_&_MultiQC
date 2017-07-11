@@ -1,0 +1,18 @@
+# Run FastQC on individual sample or cohort, and MultiQC against cohort
+# Acronyms: w = with
+
+# Software: FastQC version 0.11.4
+            MultiQC version 1.0
+
+
+# For individual sample
+
+fastqc <input_path_to_read> -o <output_directory>
+
+# For cohort
+
+cd <directory_w_input_reads>
+zcat *fastq.gz | fastqc stdin -o <ouput_directory>
+
+cd <directory_w_fastqc.gz_reads>
+multiqc .
