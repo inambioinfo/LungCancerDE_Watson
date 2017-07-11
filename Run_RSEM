@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#Author: Abby Moore
+
+for filename in /mnt/bd2/.Abbys_Lair/Trim/*_R1_*.fastq.gz
+do
+        # Make base one, i.e. remove fastq.gz
+        base=$(basename $filename .fastq.gz)
+        echo $base
+
+        # Make base two, i.e. exchange R1 with R2
+        baseR2=${base/_R1_/_R2_}
+        echo $baseR2
+
+        # Make base three, i.e. remove R*_001_fastq.gz 
+        baseAlign=$(basename $filename R*_001_fastq.gz
+        echo $baseAlign
+
+        # Run RSEM
+        rsem-calculate-expression --bowtie2 -p 4 --phred33-quals --paired-end \
+        /mnt/bd2/.Abbys_Lair/QC/Trim/${base}.fastq.gz \
+        /mnt/bd2/.Abbys_Lair/QC/Trim/${baseR2}.fastq.gz \
+        hg38_newref /mnt/bd2/.Abbys_Lair/Aligned_Reads/${baseAlign}_PE_Aligned
+
+done
