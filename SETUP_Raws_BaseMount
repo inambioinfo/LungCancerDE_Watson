@@ -1,8 +1,8 @@
-#Here, I copy data from Illimuina's BaseMount, so that permissions aren't an issue when working w/ the data
+#Copy data from Illimuina's BaseMount, so that permissions aren't an issue when working w/ the data
 
-#Software:  BaseMount version: 0.15.39.2013
-#           FUSE library version: 2.9.4
-#           fusermount version: 2.9.4
-#           using FUSE kernel interface version 7.19
+#Software:  BaseMount vs. 0.15.39.2013
+#           FUSE library vs. 2.9.4
+#           fusermount vs. 2.9.4
+#           using FUSE kernel interface vs. 7.19
 
 find <path_to_BaseMount_data>  -type f -name “.fastq.gz” | xargs cp -t <output_path>
