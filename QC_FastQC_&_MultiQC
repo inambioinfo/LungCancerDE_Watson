@@ -1,8 +1,8 @@
 # Run FastQC on individual sample or cohort, and MultiQC against cohort
 # Acronyms: w = with, dir = directory
 
-# Software: FastQC version 0.11.4
-            MultiQC version 1.0
+# Software: FastQC vs. 0.11.4
+            MultiQC vs. 1.0
 
 
 # For individual sample
